@@ -1,0 +1,1 @@
+This project showcases the design and verification of a parametrized Asynchronous FIFO with CDC handling.

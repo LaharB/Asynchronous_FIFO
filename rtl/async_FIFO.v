@@ -26,6 +26,25 @@ module async_FIFO #(parameter DEPTH = 8, DATA_WIDTH = 8)(
     wire [PTR_WIDTH:0] b_wptr, b_rptr;
     wire [PTR_WIDTH:0] g_wptr, g_rptr;
 
+    //2FF synchronizers
+    //sending write pointer to read domain
+    synchronizer #(PTR_WIDTH) sync_wptr(
+        .clk(rclk),
+        .rst_n(rrst_n),
+        .data_in(g_wptr),
+        .data_out(g_wptr_sync)
+    );
+
+    //sending read pointer to write domain
+    synchronizer #(PTR_WIDTH) sync_rptr(
+        .clk(rclk),
+        .rst_n(rrst_n),
+        .data_in(g_wptr),
+        .data_out(g_wptr_sync)
+    );
+
+
+
 
 
 

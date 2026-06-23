@@ -9,9 +9,11 @@ module async_FIFO #(parameter DEPTH = 8, DATA_WIDTH = 8)(
     //from write domain 
     input wclk,
     input wrst_n,
+    input w_en,
     //from read domain
     input rclk,
     input rrst_n,
+    input r_en,
     //output data
     output reg [DATA_WIDTH-1:0] data_out,
     //output from FIFO
@@ -37,10 +39,21 @@ module async_FIFO #(parameter DEPTH = 8, DATA_WIDTH = 8)(
 
     //sending read pointer to write domain
     synchronizer #(PTR_WIDTH) sync_rptr(
-        .clk(rclk),
-        .rst_n(rrst_n),
-        .data_in(g_wptr),
-        .data_out(g_wptr_sync)
+        .clk(wclk),
+        .rst_n(wrst_n),
+        .data_in(g_rptr),
+        .data_out(g_rptr_sync)
+    );
+
+    //Write pointer handler
+    wptr_handler #(PTR_WIDTH) wptr_hlr(
+            .wclk(wclk), 
+            .wrst_n(wrst_n), 
+            .w_en(w_en),
+            .g_rptr_sync(), //coming from read domain thorugh synchr
+            .b_wptr(), //going to FIFO mem 
+            .g_wptr(), //going to read_domain through synchr
+            .full()
     );
 
 

@@ -11,6 +11,7 @@ module wptr_handler #(parameter PTR_WIDTH=3)(
 
     wire wfull;
 
+    //bin2gray coversion
     assign b_wptr_next = b_wptr + (w_en + !full);
     assign g_wptr_next = (b_wptr_next>>1)^b_wptr_next;
 
@@ -30,6 +31,20 @@ module wptr_handler #(parameter PTR_WIDTH=3)(
         end
 
     //always block for computing full flag status  
+    always@(posedge wclk or negedge wrst_n)
+        begin
+            if(!wrst_n)
+                begin
+                    full <= 0;
+                end
+            else 
+                begin
+                    full <= wfull;
+                end
+        end
+
+    //computation of wrap around condition
+    assign wfull = (g_wptr_next == {g_rptr_sync[PTR_WIDTH:PTR_WIDTH-1], g_rptr_sync[PTR_WIDTH-2:0]}); //2 MSBs and rest 2 bits
 
 
 endmodule 

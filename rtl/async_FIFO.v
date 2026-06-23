@@ -15,10 +15,10 @@ module async_FIFO #(parameter DEPTH = 8, DATA_WIDTH = 8)(
     input rrst_n,
     input r_en,
     //output data
-    output reg [DATA_WIDTH-1:0] data_out,
+    output [DATA_WIDTH-1:0] data_out,
     //output from FIFO
-    output reg full,  //coming from write domain
-    output reg empty //coming from read domain 
+    output full,  //coming from write domain
+    output empty //coming from read domain 
 );
     //FIFO DEPTH calc
     parameter PTR_WIDTH = $clog2(DEPTH);
@@ -50,10 +50,10 @@ module async_FIFO #(parameter DEPTH = 8, DATA_WIDTH = 8)(
             .wclk(wclk), 
             .wrst_n(wrst_n), 
             .w_en(w_en),
-            .g_rptr_sync(), //coming from read domain thorugh synchr
-            .b_wptr(), //going to FIFO mem 
-            .g_wptr(), //going to read_domain through synchr
-            .full()
+            .g_rptr_sync(g_rptr_sync), //coming from read domain thorugh synchr
+            .b_wptr(b_wptr), //going to FIFO mem 
+            .g_wptr(g_wptr), //going to read_domain through synchr
+            .full(full)
     );
 
 

@@ -18,5 +18,5 @@ module synchronizer #(parameter WIDTH = 3) (
                 data_out <= data_ms;
             end  
         end
-        
+
 endmodule 

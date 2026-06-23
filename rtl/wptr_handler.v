@@ -1,4 +1,4 @@
-module wptr_handler #(parameter PTR_WIDTH=3)(
+module wptr_handler #(parameter PTR_WIDTH = 3)(
     input wclk, wrst_n, w_en,
     input [PTR_WIDTH:0] g_rptr_sync, //coming from read domain thorugh synchr
     output reg [PTR_WIDTH:0] b_wptr, //going to FIFO mem 

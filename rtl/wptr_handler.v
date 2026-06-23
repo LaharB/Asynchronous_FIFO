@@ -6,8 +6,8 @@ module wptr_handler #(parameter PTR_WIDTH = 3)(
     output reg full //full flag 
 );
 
-    wire [PTR_WIDTH:0] b_wptr_next; //next value of b_wptr
-    wire [PTR_WIDTH:0] g_ptr_next;  //next value of g_wptr
+    wire [PTR_WIDTH:0] b_wptr_next; //var to store next value of b_wptr
+    wire [PTR_WIDTH:0] g_ptr_next;  //var to store next value of g_wptr
 
     wire wfull;
 
@@ -25,8 +25,8 @@ module wptr_handler #(parameter PTR_WIDTH = 3)(
                 end
             else 
                 begin
-                    b_wptr <= b_wptr_next; //increment bin wr ptr
-                    g_wptr <= g_wptr_next; //increment gray wr ptr
+                    b_wptr <= b_wptr_next; //pass the incremented bin wr ptr
+                    g_wptr <= g_wptr_next; //pass the increment gray wr ptr
                 end
         end
 

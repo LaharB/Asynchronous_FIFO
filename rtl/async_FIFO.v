@@ -47,18 +47,41 @@ module async_FIFO #(parameter DEPTH = 8, DATA_WIDTH = 8)(
 
     //Write pointer handler
     wptr_handler #(PTR_WIDTH) wptr_hlr(
-            .wclk(wclk), 
-            .wrst_n(wrst_n), 
-            .w_en(w_en),
-            .g_rptr_sync(g_rptr_sync), //coming from read domain thorugh synchr
-            .b_wptr(b_wptr), //going to FIFO mem 
-            .g_wptr(g_wptr), //going to read_domain through synchr
-            .full(full)
+        .wclk(wclk), 
+        .wrst_n(wrst_n), 
+        .w_en(w_en),
+        .g_rptr_sync(g_rptr_sync), //coming from read domain thorugh synchr
+        .b_wptr(b_wptr), //going to FIFO mem 
+        .g_wptr(g_wptr), //going to read_domain through synchr
+        .full(full)
     );
 
+    //Read pointer handler
+    rptr_handler #(PTR_WIDTH) rptr_hlr(
+        .rclk(rclk), 
+        .rrst_n(rrst_n), 
+        .r_en(r_en),
+        .g_wptr_sync(g_wptr_sync), //coming from write domain through Synchr
+        .b_rptr(b_rptr), 
+        .g_rptr(g_rptr), //going to write domain through Synchr
+        .empty(empty)   
+    );
 
-
-
-
+    //FIFO Mem
+    fifo_mem #(DEPTH, DATA_WIDTH, PTR_WIDTH)(
+        .data_in(data_in), 
+        //form write domain 
+        .wclk(wclk), 
+        .w_en(w_en), 
+        .b_wptr(b_wptr),
+        .full(full),
+        //from read domain resp 
+        .rclk(rclk), 
+        .r_en(r_en), 
+        .b_rptr(b_rptr), 
+        .empty(empty),
+        //output data
+        .data_out(data_out)
+    );
 
 endmodule

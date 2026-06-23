@@ -4,7 +4,7 @@ module fifo_mem #(parameter DEPTH = 8, DATA_WIDTH = 8, PTR_WIDTH = 3)(
     //form write domain 
     input wclk, 
     input w_en, 
-    input [PTR_WIDTH:0] bwptr,
+    input [PTR_WIDTH:0] b_wptr,
     input full,
     //from read domain resp 
     input rclk, 
@@ -24,7 +24,7 @@ module fifo_mem #(parameter DEPTH = 8, DATA_WIDTH = 8, PTR_WIDTH = 3)(
             if(w_en && !full) //WRITE 
                 begin
                     //need only 3 bits of PTR_WIDTHs for WRITE & READ
-                    fifo[bwptr[PTR_WIDTH-1:0]] <= data_in;     
+                    fifo[b_wptr[PTR_WIDTH-1:0]] <= data_in;     
                 end 
         end
 

@@ -3,7 +3,7 @@ module wptr_handler #(parameter PTR_WIDTH = 3)(
     input [PTR_WIDTH:0] g_rptr_sync, //coming from read domain thorugh synchr
     output reg [PTR_WIDTH:0] b_wptr, //going to FIFO mem 
     output reg [PTR_WIDTH:0] g_wptr, //going to read_domain through synchr
-    output reg full //full flag 
+    output reg full //full flag status going to FIFO mem
 );
 
     wire [PTR_WIDTH:0] b_wptr_next; //var to store next value of b_wptr
@@ -12,11 +12,14 @@ module wptr_handler #(parameter PTR_WIDTH = 3)(
     wire wfull;
 
     //bin2gray coversion
-    assign b_wptr_next = b_wptr + (w_en + !full);
+    assign b_wptr_next = b_wptr + (w_en && !full);
     assign g_wptr_next = (b_wptr_next>>1)^b_wptr_next;
 
-    //always block for incrementing bin and gray write ptr 
-    always@(posedge wclk or negedge wrst_n) //async w_rst 
+    //checking wrap around condition for full flag 
+    assign wfull = (g_wptr_next == {g_rptr_sync[PTR_WIDTH:PTR_WIDTH-1], g_rptr_sync[PTR_WIDTH-2:0]}); //2 MSBs and rest 2 bits
+
+    //always block to update bin and gray write ptr
+    always@(posedge wclk or negedge wrst_n) //async write reset 
         begin
             if(!wrst_n) 
                 begin
@@ -30,7 +33,7 @@ module wptr_handler #(parameter PTR_WIDTH = 3)(
                 end
         end
 
-    //always block for computing full flag status  
+    //always block for updating full flag status  
     always@(posedge wclk or negedge wrst_n)
         begin
             if(!wrst_n)
@@ -42,9 +45,5 @@ module wptr_handler #(parameter PTR_WIDTH = 3)(
                     full <= wfull;
                 end
         end
-
-    //computation of wrap around condition
-    assign wfull = (g_wptr_next == {g_rptr_sync[PTR_WIDTH:PTR_WIDTH-1], g_rptr_sync[PTR_WIDTH-2:0]}); //2 MSBs and rest 2 bits
-
 
 endmodule 

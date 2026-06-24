@@ -80,7 +80,7 @@ module async_FIFO #(parameter DEPTH = 8, DATA_WIDTH = 8)(
         .w_en(w_en), 
         .b_wptr(b_wptr),
         .full(full),
-        //from read domain resp 
+        //from read domain 
         .rclk(rclk), 
         .r_en(r_en), 
         .b_rptr(b_rptr),

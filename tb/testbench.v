@@ -48,7 +48,7 @@ module tb();
     always #35 rclk = ~rclk; //14 Mhz read clock
 
     //WRITE task
-    task write_data(input [DATA_WIDTH-1:0]d_in);
+    task write_data(input [DATA_WIDTH-1:0] d_in);
         begin
             @(posedge wclk); //wait for 1 wclk tick
             w_en = 1; //make w_en HIGH
@@ -58,7 +58,7 @@ module tb();
             w_en = 0;
         end
     endtask
-
+    
     //READ task
     task read_data();
         begin

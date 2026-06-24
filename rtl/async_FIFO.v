@@ -68,7 +68,10 @@ module async_FIFO #(parameter DEPTH = 8, DATA_WIDTH = 8)(
     );
 
     //FIFO Mem
-    fifo_mem #(DEPTH, DATA_WIDTH, PTR_WIDTH)(
+    fifo_mem #( 
+        .DEPTH(DEPTH), 
+        .DATA_WIDTH(DATA_WIDTH), 
+        .PTR_WIDTH(PTR_WIDTH))(
         .data_in(data_in), 
         //form write domain 
         .wclk(wclk), 

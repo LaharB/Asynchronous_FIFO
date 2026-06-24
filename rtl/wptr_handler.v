@@ -16,7 +16,7 @@ module wptr_handler #(parameter PTR_WIDTH = 3)(
     assign g_wptr_next = (b_wptr_next>>1) ^ b_wptr_next;
 
     //checking wrap around condition for full flag 
-    assign wfull = (g_wptr_next == {g_rptr_sync[PTR_WIDTH:PTR_WIDTH-1], g_rptr_sync[PTR_WIDTH-2:0]}); //2 MSBs and rest 2 bits
+    assign wfull = (g_wptr_next == {~g_rptr_sync[PTR_WIDTH:PTR_WIDTH-1], g_rptr_sync[PTR_WIDTH-2:0]}); //2 MSBs and rest 2 bits
 
     //always block to update bin and gray write ptr
     always@(posedge wclk or negedge wrst_n) //async write reset 

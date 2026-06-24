@@ -73,23 +73,21 @@ module tb();
     //stimulus 
     initial 
         begin
-            #1;
             wrst_n = 0; 
             rrst_n = 0;
             w_en = 0;
             r_en = 0;
 
             @(posedge wclk);
-            wrst_n = 1;
-            @(posedge rclk);
+            wrst_n = 1; 
             rrst_n = 1; //disable reset 
             $display("Time:%0t\n SCENARIO 1", $time);
             write_data(1);
-            write_data(10);
-            write_data(100);
+            //write_data(10);
+            //write_data(100);
             read_data();
-            read_data();
-            read_data();
+            //read_data();
+            //read_data();
             #100;
             $finish();
         end

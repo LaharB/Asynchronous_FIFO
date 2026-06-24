@@ -7,7 +7,7 @@ module wptr_handler #(parameter PTR_WIDTH = 3)(
 );
 
     wire [PTR_WIDTH:0] b_wptr_next; //var to store next value of b_wptr
-    wire [PTR_WIDTH:0] g_ptr_next;  //var to store next value of g_wptr
+    wire [PTR_WIDTH:0] g_wptr_next;  //var to store next value of g_wptr
 
     wire wfull;
 

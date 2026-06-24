@@ -88,7 +88,7 @@ module tb();
             read_data();
             read_data();
             read_data();
-            #100;
+            #200;
             $finish;
         end
 

@@ -38,7 +38,7 @@ module rptr_handler #(parameter PTR_WIDTH = 3)(
         begin
             if(!rrst_n)
                 begin
-                    empty <= 0; //default value 
+                    empty <= 1; //by default FIFO is empty 
                 end 
             else 
                 begin

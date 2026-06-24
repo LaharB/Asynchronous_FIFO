@@ -83,13 +83,13 @@ module tb();
             rrst_n = 1; //disable reset 
             $display("Time:%0t\n SCENARIO 1", $time);
             write_data(1);
-            //write_data(10);
-            //write_data(100);
+            write_data(10);
+            write_data(100);
             read_data();
-            //read_data();
-            //read_data();
+            read_data();
+            read_data();
             #100;
-            $finish();
+            $finish;
         end
 
 endmodule

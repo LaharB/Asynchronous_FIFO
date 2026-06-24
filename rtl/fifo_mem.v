@@ -12,7 +12,7 @@ module fifo_mem #(parameter DEPTH = 8, DATA_WIDTH = 8, PTR_WIDTH = 3)(
     input [PTR_WIDTH:0] b_rptr, 
     input empty,
     //output data
-    output reg [DATA_WIDTH-1:0] data_out//add reg when doing syncr READ
+    output [DATA_WIDTH-1:0] data_out//add reg when doing syncr READ
 );
 
     //FIFO
@@ -28,7 +28,7 @@ module fifo_mem #(parameter DEPTH = 8, DATA_WIDTH = 8, PTR_WIDTH = 3)(
                 end 
         end
 
-
+    /*
     //READ into FIFO wrt read domain
     always@(posedge rclk)
         begin
@@ -37,11 +37,11 @@ module fifo_mem #(parameter DEPTH = 8, DATA_WIDTH = 8, PTR_WIDTH = 3)(
                     data_out <= fifo[b_rptr[PTR_WIDTH-1:0]];
                 end
         end 
-
-    /*
+    */
+    
     //we are performing READ asynchronously
     assign data_out = fifo[b_rptr[PTR_WIDTH-1:0]];
-    */
+    
 
 
 endmodule

@@ -64,8 +64,8 @@ module tb();
         begin
             @(posedge rclk); //wait for 1 rclk tick
             r_en = 1; //make r_en HIGH
-            @(posedge rclk);
             $display("Time:%0t, Data_out:%0d", $time, data_out);
+            @(posedge rclk);
             r_en = 0;
         end
     endtask 

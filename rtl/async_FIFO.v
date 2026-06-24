@@ -71,7 +71,8 @@ module async_FIFO #(parameter DEPTH = 8, DATA_WIDTH = 8)(
     fifo_mem #( 
         .DEPTH(DEPTH), 
         .DATA_WIDTH(DATA_WIDTH), 
-        .PTR_WIDTH(PTR_WIDTH))
+        .PTR_WIDTH(PTR_WIDTH)
+        )
     fifo_m (
         .data_in(data_in), 
         //from write domain 

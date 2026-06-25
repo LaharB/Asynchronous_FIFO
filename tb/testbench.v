@@ -73,18 +73,24 @@ module tb();
                 end
             
             w_en = 0;
+            @(posedge wclk);
+
+            //wait for correct ptr values to be passed by syncr and get empty flag update 
+            wait(empty == 0);
+            @(posedge rclk);
             r_en = 1;
 
             //READ
             for(i = 0; i < DEPTH; i = i + 1)
                 begin
-                    $display("Time:%0t, Data_out:%0d", $time, data_out);
                     @(posedge rclk);
+                    #1;
+                    $display("Time:%0t, Data_out:%0d", $time, data_out);
                 end
 
             r_en = 0;
-            
-            #500;
+
+            #20;
             $finish;
         end
 

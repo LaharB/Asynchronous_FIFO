@@ -1,8 +1,7 @@
 vlib work
 vlog "../tb/testbench.v"
 vsim -debugDB -voptargs=+acc work.tb;
-# do wave.do
-add wave -r *
+do wave.do
 run -all
 # view schematic 
 # add schematic /tb/DUT

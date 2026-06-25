@@ -46,51 +46,45 @@ module tb();
     always #10 wclk = ~wclk; //50 Mhz write clock
     //read clk
     always #35 rclk = ~rclk; //14 Mhz read clock
-
-    //WRITE task
-    task write_data(input [DATA_WIDTH-1:0] d_in);
-        begin
-            @(posedge wclk); //wait for 1 wclk tick
-            w_en = 1; //make w_en HIGH
-            data_in = d_in;
-            $display("Time:%0t, Data_in:%0d", $time, data_in);
-            @(posedge wclk); //wait again for 1 wck tick
-            w_en = 0;
-        end
-    endtask
-
-    //READ task
-    task read_data;
-        begin
-            @(posedge rclk); //wait for 1 rclk tick
-            r_en = 1; //make r_en HIGH
-            $display("Time:%0t, Data_out:%0d", $time, data_out);
-            @(posedge rclk);
-            r_en = 0;
-        end
-    endtask 
+    
+    integer i;
 
     //stimulus 
     initial 
         begin
-            wrst_n = 0; 
+            //assert reset 
+            wrst_n = 0;
             rrst_n = 0;
-            w_en = 0;
-            r_en = 0;
 
-            repeat(5)@(posedge wclk);
+            w_en = 0;
+            r_en = 0; 
+
+            repeat(2)@(posedge wclk);
             wrst_n = 1;
-            $display("Time:%0t\n SCENARIO 1", $time);
-            write_data(1);
-            write_data(10);
-            write_data(100);
+            rrst_n = 1;
+            w_en = 1;
+
+            //WRITE
+            for(i = 0; i < DEPTH; i = i + 1)
+                begin
+                    data_in = $urandom;
+                    $display("Time:%0t, Data_in:%0d", $time, data_in);
+                    @(posedge wclk);
+                end
             
-            repeat(5)@(posedge rclk); 
-            rrst_n = 1; //disable reset 
-            read_data;
-            read_data;
-            read_data;
-            #100;
+            w_en = 0;
+            r_en = 1;
+
+            //READ
+            for(i = 0; i < DEPTH; i = i + 1)
+                begin
+                    $display("Time:%0t, Data_out:%0d", $time, data_out);
+                    @(posedge rclk);
+                end
+
+            r_en = 0;
+            
+            #500;
             $finish;
         end
 

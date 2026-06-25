@@ -64,8 +64,8 @@ module tb();
         begin
             @(posedge rclk); //wait for 1 rclk tick
             r_en = 1; //make r_en HIGH
-            @(posedge rclk);
             $display("Time:%0t, Data_out:%0d", $time, data_out);
+            @(posedge rclk);
             r_en = 0;
         end
     endtask 
@@ -78,17 +78,19 @@ module tb();
             w_en = 0;
             r_en = 0;
 
-            @(posedge wclk);
-            wrst_n = 1; 
-            rrst_n = 1; //disable reset 
+            repeat(5)@(posedge wclk);
+            wrst_n = 1;
             $display("Time:%0t\n SCENARIO 1", $time);
             write_data(1);
             write_data(10);
             write_data(100);
-            read_data();
-            read_data();
-            read_data();
-            #200;
+            
+            repeat(5)@(posedge rclk); 
+            rrst_n = 1; //disable reset 
+            read_data;
+            read_data;
+            read_data;
+            #100;
             $finish;
         end
 

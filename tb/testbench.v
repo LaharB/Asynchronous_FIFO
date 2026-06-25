@@ -43,9 +43,9 @@ module tb();
 
     //generate clock
     //write clk
-    always #10 wclk = ~wclk; //50 Mhz write clock
+    always #10 wclk = ~wclk; //20ns, 50 Mhz write clock
     //read clk
-    always #35 rclk = ~rclk; //14 Mhz read clock
+    always #35 rclk = ~rclk; //70ns, 14 Mhz read clock
     
     integer i;
 

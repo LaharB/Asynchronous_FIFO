@@ -1,3 +1,2 @@
 This project showcases the design and verification of a parametrized Asynchronous FIFO with CDC handling.
-
-# NOTE : Files and Docs to be Updated very soon 
+The schematic has been generated and simulation has been performed using Siemens QuestaSim 10.7c Simulator.

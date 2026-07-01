@@ -23,7 +23,7 @@ An **Asynchronous First-In-First-Out (FIFO)** is memory buffer or queue.
 
 The architectural design is partitioned into 4 functional blocks - 
 
-
+![alt text](docs/Asynchronous_FIFO_block_diagram.png)
 
 ### Write Pointer Handler:
 

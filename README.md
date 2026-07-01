@@ -58,6 +58,8 @@ In this project, 2-Flip-Flop (2FF) synchronizers are utilized to safely pass:
 
 ### Metastabiltiy
 
+Metastability occurs when a flip-flop receives a signal too close to its clock edge, violating setup or hold time. As a result, the output becomes unstable—neither a logical 0 nor 1—for an unpredictable time.
+
 
 
 ### Clock Domain Crossing(CDC)

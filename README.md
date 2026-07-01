@@ -4,7 +4,6 @@ This project showcases the design and verification of a parametrized Asynchronou
 The schematic has been generated and simulation has been performed using Siemens QuestaSim 10.7c Simulator.
 
 An **Asynchronous First-In-First-Out (FIFO)** is memory buffer or queue.
-
 - It is a critical structural component used to safely pass data between two systems operating on different, unsynchronized clock frequencies.
 - Since write and read clocks are not synchronized, it is referred to as **asynchronous** FIFO.
 
@@ -17,3 +16,38 @@ An **Asynchronous First-In-First-Out (FIFO)** is memory buffer or queue.
 - Rate Matching: Balances data rates between fast and slow subsystems.
 - Serial Communication: UART, SPI buffering.
 - Pipeline Staging: Holds data in pipelined digital designs.
+  
+-------------------------------------------------------------------
+
+# Architecture 
+
+The architectural design is partitioned into 4 functional blocks - 
+
+## Write Pointer Handler:
+
+- It operates in the **write clock domain.** 
+- It increments the binary write pointer, converts it to Gray code and generates the FIFO 'full' condition to **prevent write overflows.**
+
+## Read Pointer Handler:
+
+- Operates in the read clock domain. 
+- It increments the binary read pointer, converts it to Gray code, and generates the FIFO 'empty' condition to prevent reading invalid data.
+  
+## Synchronizers: 
+
+In this project, 2-Flip-Flop (2FF) synchronizers are utilized to safely pass: 
+- the **Gray-coded read pointer** into the write domain. 
+- the **Gray-coded write pointer** into the read domain.
+
+**NOTE:** A single “2 FF synchronizer” can resolve metastability for **only one bit**. Hence, depending on write and read pointers multiple 2FF synchronizers are required. 
+
+## FIFO Memory:
+ A parameterized memory array where data is written using the write clock and read using the read clock.
+
+-------------------------------------------------------------------
+
+
+
+
+
+

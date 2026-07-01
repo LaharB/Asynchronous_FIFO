@@ -86,15 +86,19 @@ In this project, 2-Flip-Flop (2FF) synchronizers are utilized to safely pass:
 - Passing binary pointers directly across clock domains causes severe metastability because **multiple bits** can transition simultaneously. 
 - This design converts binary pointers to Gray code before synchronization, ensuring **only a single bit** changes state at any given time.
 
-### Condition Logic Generation:
+### Empty/Full Flag Logic Generation:
 
 - The **Empty flag** is evaluated in the **read domain** by checking if the synchronized Gray write pointer equals the next Gray read pointer.
 
         rempty = (g_wptr_sync == g_rptr_next);
 
+- This ensures the FIFO does not underflow during asynchronous operation.
+
 - The **Full flag** is evaluated in the write domain by checking if the next Gray write pointer's MSBs are inverted compared to the synchronized Gray read pointer, while the LSBs match.
 
         wfull = (g_wptr_next == {~g_rptr_sync[PTR_WIDTH:PTR_WIDTH-1], g_rptr_sync[PTR_WIDTH-2:0]});
 
+- This ensures the FIFO does not overflow during asynchronous operation.
 
 -------------------------------------------------------------------
+

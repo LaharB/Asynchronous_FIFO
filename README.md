@@ -81,8 +81,16 @@ In this project, 2-Flip-Flop (2FF) synchronizers are utilized to safely pass:
 
 ### Gray Code Conversion: 
 
-- Passing binary pointers directly across clock domains causes severe metastability because multiple bits can transition simultaneously. 
-- This design converts binary pointers to Gray code before synchronization, ensuring only a single bit changes state at any given time.
+- Passing binary pointers directly across clock domains causes severe metastability because **multiple bits** can transition simultaneously. 
+- This design converts binary pointers to Gray code before synchronization, ensuring **only a single bit** changes state at any given time.
+
+### Condition Logic Generation:
+
+- The **Empty flag** is evaluated in the **read domain** by checking if the synchronized Gray write pointer equals the next Gray read pointer.
+
+
+
+- The **Full flag** is evaluated in the write domain by checking if the next Gray write pointer's MSBs are inverted compared to the synchronized Gray read pointer, while the LSBs match.
 
 
 

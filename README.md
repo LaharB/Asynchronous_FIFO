@@ -118,5 +118,11 @@ The Schematics has been generated using Questasim 10.7c.
 
 -------------------------------------------------------------------
 
+<details><summary>Simulation</summary><br>
 
+The simulation has been performed using Questasim 10.7 as well.
+
+![alt text](docs/Simulation_Waveform.png)
+
+-------------------------------------------------------------------
 

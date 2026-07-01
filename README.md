@@ -124,5 +124,26 @@ The simulation has been performed using Questasim 10.7 as well.
 
 ![alt text](docs/Simulation_Waveform.png)
 
+</details>
+
 -------------------------------------------------------------------
 
+<details><summary>Console Ouput</summary><br>
+
+![alt text](docs/Console_output.png)
+
+</details>
+
+-------------------------------------------------------------------
+
+## Simulation Steps
+
+To compile the RTL and simulate the design , run the `run.do` file in Questasim.
+
+-------------------------------------------------------------------
+
+## References & Acknowledgments
+
+The following blog has been followed for theory and practical implementation of this Asynchronous FIFO project.
+
+- [VLSI Verify Blog on Asynchronous FIFO](https://vlsiverify.com/verilog/verilog-codes/asynchronous-fifo/)

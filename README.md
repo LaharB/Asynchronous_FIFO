@@ -92,13 +92,31 @@ In this project, 2-Flip-Flop (2FF) synchronizers are utilized to safely pass:
 
         rempty = (g_wptr_sync == g_rptr_next);
 
-- This ensures the FIFO does not underflow during asynchronous operation.
+- This ensures the FIFO does not **underflow** during asynchronous operation.
 
 - The **Full flag** is evaluated in the write domain by checking if the next Gray write pointer's MSBs are inverted compared to the synchronized Gray read pointer, while the LSBs match.
 
         wfull = (g_wptr_next == {~g_rptr_sync[PTR_WIDTH:PTR_WIDTH-1], g_rptr_sync[PTR_WIDTH-2:0]});
 
-- This ensures the FIFO does not overflow during asynchronous operation.
+- This ensures the FIFO does not **overflow** during asynchronous operation.
 
 -------------------------------------------------------------------
+
+<details><summary>Schematic</summary><br>
+
+The Schematics has been generated using Questasim 10.7c.
+
+## Asynchronous FIFO Top module 
+
+![alt text](docs/Schematic.png)
+
+## FIFO Sub-Modules 
+
+![alt text](docs/Schematic_w_sub_modules.png)
+
+</details>
+
+-------------------------------------------------------------------
+
+
 

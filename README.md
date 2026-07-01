@@ -39,6 +39,8 @@ In this project, 2-Flip-Flop (2FF) synchronizers are utilized to safely pass:
 - the **Gray-coded read pointer** into the write domain. 
 - the **Gray-coded write pointer** into the read domain.
 
+![alt text](docs/2FF_Synchronizer.png)
+
 **NOTE:** A single “2 FF synchronizer” can resolve metastability for **only one bit**. Hence, depending on write and read pointers multiple 2FF synchronizers are required. 
 
 ### FIFO Memory:
@@ -58,9 +60,14 @@ In this project, 2-Flip-Flop (2FF) synchronizers are utilized to safely pass:
 
 ### Metastabiltiy
 
-Metastability occurs when a flip-flop receives a signal too close to its clock edge, violating setup or hold time. As a result, the output becomes unstable—neither a logical 0 nor 1—for an unpredictable time.
+- Metastability occurs when a flip-flop receives a signal too close to its clock edge, violating setup or hold time. As a result, the output becomes unstable—neither a logical 0 nor 1—for an unpredictable time.
 
+### Metastability Solution: 
 
+- A 2FF synchronizer can resolve metastability.
+- FlipFlop1 may go to metastability but FlipFlop2 will captures the stable output safely.
+
+![alt text](<docs/Metastability_and_2FF_Synchronizer .png>)
 
 ### Clock Domain Crossing(CDC)
 
@@ -71,6 +78,11 @@ Metastability occurs when a flip-flop receives a signal too close to its clock e
 - Timing is unpredictable because the clocks are asynchronous.
 - Signals can arrive mid-transition, leading to metastability.
 - It can cause glitches, data corruption, or functional errors if not handled properly.
+
+### Gray Code Conversion: 
+
+- Passing binary pointers directly across clock domains causes severe metastability because multiple bits can transition simultaneously. 
+- This design converts binary pointers to Gray code before synchronization, ensuring only a single bit changes state at any given time.
 
 
 

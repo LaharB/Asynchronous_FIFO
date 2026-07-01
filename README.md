@@ -9,7 +9,7 @@ An **Asynchronous First-In-First-Out (FIFO)** is memory buffer or queue.
 
 -------------------------------------------------------------------
 
-# Use Cases of FIFO
+## Use Cases of FIFO
 
 - Clock Domain Crossing (CDC): Transfer data between blocks running on different clocks.
 - Data Buffering: Smoothens data transfer between producer and consumer.
@@ -19,21 +19,21 @@ An **Asynchronous First-In-First-Out (FIFO)** is memory buffer or queue.
   
 -------------------------------------------------------------------
 
-# Architecture 
+## Architecture 
 
 The architectural design is partitioned into 4 functional blocks - 
 
-## Write Pointer Handler:
+### Write Pointer Handler:
 
 - It operates in the **write clock domain.** 
 - It increments the binary write pointer, converts it to Gray code and generates the FIFO 'full' condition to **prevent write overflows.**
 
-## Read Pointer Handler:
+### Read Pointer Handler:
 
 - Operates in the read clock domain. 
 - It increments the binary read pointer, converts it to Gray code, and generates the FIFO 'empty' condition to prevent reading invalid data.
   
-## Synchronizers: 
+### Synchronizers: 
 
 In this project, 2-Flip-Flop (2FF) synchronizers are utilized to safely pass: 
 - the **Gray-coded read pointer** into the write domain. 
@@ -41,12 +41,26 @@ In this project, 2-Flip-Flop (2FF) synchronizers are utilized to safely pass:
 
 **NOTE:** A single “2 FF synchronizer” can resolve metastability for **only one bit**. Hence, depending on write and read pointers multiple 2FF synchronizers are required. 
 
-## FIFO Memory:
+### FIFO Memory:
  A parameterized memory array where data is written using the write clock and read using the read clock.
 
 -------------------------------------------------------------------
 
+## Some Concepts related to Asynchronous FIFO Design
 
+### Metastabiltiy
+
+
+
+### Clock Domain Crossing(CDC)
+
+- Clock Domain Crossing refers to the transfer of data or control signals from one clock domain to another when both domains are running at different frequencies or phases.
+
+#### Why is CDC challenging?
+
+- Timing is unpredictable because the clocks are asynchronous.
+- Signals can arrive mid-transition, leading to metastability.
+- It can cause glitches, data corruption, or functional errors if not handled properly.
 
 
 

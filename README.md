@@ -46,7 +46,15 @@ In this project, 2-Flip-Flop (2FF) synchronizers are utilized to safely pass:
 
 -------------------------------------------------------------------
 
-## Some Concepts related to Asynchronous FIFO Design
+## Key challenges in asynchronous FIFO
+
+- Metastability due to clock domain crossing
+- Safe pointer synchronization (write pointer in read clock domain and vice versa)
+- Full and empty flag generation without timing errors.
+
+-------------------------------------------------------------------
+
+## Concepts related to Asynchronous FIFO Design
 
 ### Metastabiltiy
 

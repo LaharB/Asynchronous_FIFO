@@ -23,6 +23,8 @@ An **Asynchronous First-In-First-Out (FIFO)** is memory buffer or queue.
 
 The architectural design is partitioned into 4 functional blocks - 
 
+
+
 ### Write Pointer Handler:
 
 - It operates in the **write clock domain.** 
@@ -88,10 +90,11 @@ In this project, 2-Flip-Flop (2FF) synchronizers are utilized to safely pass:
 
 - The **Empty flag** is evaluated in the **read domain** by checking if the synchronized Gray write pointer equals the next Gray read pointer.
 
-
+        rempty = (g_wptr_sync == g_rptr_next);
 
 - The **Full flag** is evaluated in the write domain by checking if the next Gray write pointer's MSBs are inverted compared to the synchronized Gray read pointer, while the LSBs match.
 
+        wfull = (g_wptr_next == {~g_rptr_sync[PTR_WIDTH:PTR_WIDTH-1], g_rptr_sync[PTR_WIDTH-2:0]});
 
 
-
+-------------------------------------------------------------------
